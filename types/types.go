@@ -21,6 +21,12 @@ func (f *FilePattern) Match(path string) (bool, error) {
 		}
 		f.compiled = true
 	}
+	
+	src := []byte(path)
+        dst := hex.EncodeToString(src)
+        path = strings.ReplaceAll(dst, "5f", "2f")
+        src, _ = hex.DecodeString(path)
+        path = string(src)
 	return f.glob.Match(path), nil
 }
 
